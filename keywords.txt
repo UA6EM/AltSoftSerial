@@ -1,4 +1,33 @@
-AltSoftSerial	KEYWORD1
+#######################################
+# Alternate SoftSerial library.
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+AltSoftSerial KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
 active	KEYWORD2
-overflow	KEYWORD2
+available	KEYWORD2
+begin	KEYWORD2
+end	KEYWORD2
+enable_timer0 KEYWORD2
+flush	KEYWORD2
+flushInput  KEYWORD2
+flushOutput KEYWORD2
+isListening	KEYWORD2
 library_version	KEYWORD2
+listen	KEYWORD2
+overflow	KEYWORD2
+peek	KEYWORD2
+read	KEYWORD2
+write	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
