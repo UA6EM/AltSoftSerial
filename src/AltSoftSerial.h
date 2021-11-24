@@ -25,7 +25,6 @@
 #define AltSoftSerial_h
 
 #include <inttypes.h>
-#include <util/parity.h>
 
 #if ARDUINO >= 100
 #include "Arduino.h"
@@ -45,13 +44,12 @@ class AltSoftSerial : public Stream
 public:
 	AltSoftSerial() { }
 	~AltSoftSerial() { end(); }
-	//static void begin(uint32_t baud) { init((ALTSS_BASE_FREQ + baud / 2) / baud); }
-		static void begin(uint32_t baud, uint8_t config = SERIAL_8N1) { init((F_CPU + baud / 2) / baud, config); }
-	 static void begin(uint32_t baud) { init((ALTSS_BASE_FREQ + baud / 2) / baud, SERIAL_8N1); }
+	static void begin(uint32_t baud) { init((ALTSS_BASE_FREQ + baud / 2) / baud); }
 	static void end();
 	int peek();
 	int read();
 	int available();
+	int availableForWrite();
 #if ARDUINO >= 100
 	size_t write(uint8_t byte) { writeByte(byte); return 1; }
 	void flush() { flushOutput(); }
@@ -63,17 +61,16 @@ public:
 	static void flushInput();
 	static void flushOutput();
 	// for drop-in compatibility with NewSoftSerial, rxPin & txPin ignored
-	AltSoftSerial(uint8_t rxPin, uint8_t txPin, bool inverse = false) { }
+	AltSoftSerial(uint8_t rxPin, uint8_t txPin, bool inverse = false) { (void)rxPin; (void)txPin; (void)inverse; }
 	bool listen() { return false; }
 	bool isListening() { return true; }
 	bool overflow() { bool r = timing_error; timing_error = false; return r; }
 	static int library_version() { return 1; }
-	static void enable_timer0(bool enable) { }
+	static void enable_timer0(bool enable) { (void)enable; }
 	static bool timing_error;
 private:
-	static void init(uint32_t cycles_per_bit, uint8_t config);
+	static void init(uint32_t cycles_per_bit);
 	static void writeByte(uint8_t byte);
-	static void setBitCounts(uint8_t config);
 };
 
 #endif
